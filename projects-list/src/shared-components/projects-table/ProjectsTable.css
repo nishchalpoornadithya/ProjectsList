@@ -61,4 +61,14 @@
     font-weight: 500;
     font-size: 18px;
   }
+
+/* Hide captions but keep accessible for screen readers */
+.visually-hidden {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+  
   

@@ -36,12 +36,13 @@ const ProjectsTable = ({ data }) => {
 
   return (
     <div className="projects-table-container">
-      <table className="projects-table">
+      <table className="projects-table" aria-label="Projects Data Table">
+        <caption className="visually-hidden">List of projects with funding data</caption>
         <thead>
           <tr>
-            <th>S.No.</th>
-            <th>Percentage Funded</th>
-            <th>Amount Pledged</th>
+            <th scope="col">S.No.</th>
+            <th scope="col">Percentage Funded</th>
+            <th scope="col">Amount Pledged</th>
           </tr>
         </thead>
         <tbody>
@@ -55,12 +56,25 @@ const ProjectsTable = ({ data }) => {
         </tbody>
       </table>
 
-      <div className="pagination">
-        <button onClick={() => paginate(1)} disabled={currentPage === 1}>
+      <nav
+        className="pagination"
+        role="navigation"
+        aria-label="Pagination Navigation"
+      >
+        <button
+          onClick={() => paginate(1)}
+          disabled={currentPage === 1}
+          aria-label="Go to first page"
+        >
           ⏮
         </button>
-        <button onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1}>
-          <span className="pagination-arrows">{"<"}</span>
+
+        <button
+          onClick={() => paginate(currentPage - 1)}
+          disabled={currentPage === 1}
+          aria-label="Go to previous page"
+        >
+          {"<"}
         </button>
 
         {getPagination().map((num) => (
@@ -68,18 +82,29 @@ const ProjectsTable = ({ data }) => {
             key={num}
             className={currentPage === num ? "active" : ""}
             onClick={() => paginate(num)}
+            aria-current={currentPage === num ? "page" : undefined}
+            aria-label={`Go to page ${num}`}
           >
             {num}
           </button>
         ))}
 
-        <button onClick={() => paginate(currentPage + 1)} disabled={currentPage === totalPages}>
-          <span className="pagination-arrows">{">"}</span>
+        <button
+          onClick={() => paginate(currentPage + 1)}
+          disabled={currentPage === totalPages}
+          aria-label="Go to next page"
+        >
+          {">"}
         </button>
-        <button onClick={() => paginate(totalPages)} disabled={currentPage === totalPages}>
+
+        <button
+          onClick={() => paginate(totalPages)}
+          disabled={currentPage === totalPages}
+          aria-label="Go to last page"
+        >
           ⏭
         </button>
-      </div>
+      </nav>
     </div>
   );
 };
