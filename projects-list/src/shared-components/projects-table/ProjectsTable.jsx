@@ -6,6 +6,8 @@ const ProjectsTable = ({ data }) => {
   const recordsPerPage = 5;
   const totalPages = Math.ceil(data.length / recordsPerPage);
 
+  /* METHODS */
+
   const getCurrentRecords = () => {
     const start = (currentPage - 1) * recordsPerPage;
     return data.slice(start, start + recordsPerPage);
@@ -33,6 +35,8 @@ const ProjectsTable = ({ data }) => {
 
     return pages;
   };
+
+  /* VIEW */
 
   return (
     <div className="projects-table-container">

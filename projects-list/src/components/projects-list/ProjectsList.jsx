@@ -15,6 +15,8 @@ const ProjectsList = () => {
     fetchData();
   }, []);
 
+  /* VIEW */
+
   return (
     <main
       className='projects-list-container'
