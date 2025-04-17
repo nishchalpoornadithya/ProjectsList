@@ -1,88 +1,87 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from "react";
+import "./ProjectsTable.css";
 
-const ProjectsTable = (props) => {
-    const { data } = props;
-    const [currentPage, setCurrentPage] = useState(1);
-    const [currentRecords, setCurrentRecords] = useState([]);
-    const [totalPages, setTotalPages] = useState(1);
-    const recordsPerPage = 5;
+const ProjectsTable = ({ data }) => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const recordsPerPage = 5;
+  const totalPages = Math.ceil(data.length / recordsPerPage);
 
-    useEffect(() => {
-        if(data) {
-            // Calculate which records to show on the current page
-            const indexOfLastRecord = currentPage * recordsPerPage;
-            const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
-            setCurrentRecords(data.slice(indexOfFirstRecord, indexOfLastRecord));
-        }
-    }, [currentPage, data]);
+  const getCurrentRecords = () => {
+    const start = (currentPage - 1) * recordsPerPage;
+    return data.slice(start, start + recordsPerPage);
+  };
 
+  const paginate = (pageNumber) => {
+    if (pageNumber < 1 || pageNumber > totalPages) return;
+    setCurrentPage(pageNumber);
+  };
 
-    useEffect(() => {
-        // Calculate total pages
-        setTotalPages(Math.ceil(data.length / recordsPerPage));
-    }, [data]);
+  const getPagination = () => {
+    const visiblePages = 5;
+    let start = Math.max(1, currentPage - Math.floor(visiblePages / 2));
+    let end = start + visiblePages - 1;
 
-    /* METHODS */
-
-    // Handle page change
-    const paginate = (pageNumber) => {
-        if(pageNumber < 1 || pageNumber > totalPages) {
-            return;
-        }
-        setCurrentPage(pageNumber);
+    if (end > totalPages) {
+      end = totalPages;
+      start = Math.max(1, end - visiblePages + 1);
     }
 
-    /* VIEWS */
+    const pages = [];
+    for (let i = start; i <= end; i++) {
+      pages.push(i);
+    }
 
-    return (
-        data && <div class="projects-table-container">
-            <table border="1" cellPadding="5" style={{ width: "100%", marginTop: "20px" }}>
-                <thead>
-                <tr>
-                    <th>S.No.</th>
-                    <th>Percentage funded</th>
-                    <th>Amount pledged</th>
-                </tr>
-                </thead>
+    return pages;
+  };
 
-                <tbody>
-                {currentRecords && currentRecords.map((record, index) => (
-                    <tr key={'project-'+index}>
-                        <td>{record['s.no']}</td>
-                        <td>{record['percentage.funded']}</td>
-                        <td>{record['amt.pledged']}</td>
-                    </tr>
-                ))}
-                </tbody>
-            </table>
+  return (
+    <div className="projects-table-container">
+      <table className="projects-table">
+        <thead>
+          <tr>
+            <th>S.No.</th>
+            <th>Percentage Funded</th>
+            <th>Amount Pledged</th>
+          </tr>
+        </thead>
+        <tbody>
+          {getCurrentRecords().map((record, idx) => (
+            <tr key={idx}>
+              <td>{record["s.no"]}</td>
+              <td>{record["percentage.funded"]}</td>
+              <td>{record["amt.pledged"]}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
 
-            {/* Pagination Controls */}
-            <div style={{ marginTop: "20px" }}>
-                <button
-                    onClick={() => paginate(currentPage - 1)}
-                    disabled={currentPage === 1}
-                >
-                    {'<'}
-                </button>
-                {Array.from({ length: totalPages }, (_, index) => (
-                <button
-                    key={'project-next-btn'+ index + 1}
-                    onClick={() => paginate(index + 1)}
-                    style={{ margin: "0 5px" }}
-                >
-                    {index + 1}
-                </button>
-                ))}
-                <button
-                    onClick={() => paginate(currentPage + 1)}
-                    disabled={currentPage === totalPages}
-                >
-                    {'>'}
-                </button>
-            </div>
+      <div className="pagination">
+        <button onClick={() => paginate(1)} disabled={currentPage === 1}>
+          ⏮
+        </button>
+        <button onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1}>
+          <span className="pagination-arrows">{"<"}</span>
+        </button>
 
-        </div>
-    )
-}
+        {getPagination().map((num) => (
+          <button
+            key={num}
+            className={currentPage === num ? "active" : ""}
+            onClick={() => paginate(num)}
+          >
+            {num}
+          </button>
+        ))}
+
+        <button onClick={() => paginate(currentPage + 1)} disabled={currentPage === totalPages}>
+          <span className="pagination-arrows">{">"}</span>
+        </button>
+        <button onClick={() => paginate(totalPages)} disabled={currentPage === totalPages}>
+          ⏭
+        </button>
+      </div>
+    </div>
+  );
+};
 
 export default ProjectsTable;

@@ -1,0 +1,64 @@
+.projects-table-container {
+    width: 100%;
+    max-width: 70%;
+    min-width: 800px;
+    min-height: 500px;
+    margin: 0 auto;
+  }
+  
+  .projects-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-family: sans-serif;
+    background-color: #fff;
+    border: 1px solid #ddd;
+  }
+  
+  .projects-table th,
+  .projects-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .pagination {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 5px;
+    font-family: sans-serif;
+  }
+  
+  .pagination button {
+    padding: 8px 12px;
+    background-color: white;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    border-radius: 4px;
+    min-width: 40px;
+  }
+  
+  .pagination button.active {
+    font-weight: bold;
+    border: 2px solid black;
+  }
+  
+  .pagination button:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+  
+  .ellipsis {
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    font-size: 18px;
+  }
+
+  .pagination-arrows {
+    font-weight: 500;
+    font-size: 18px;
+  }
+  

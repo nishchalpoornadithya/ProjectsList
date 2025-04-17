@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { getProjectsList } from '../../services/projects-service';
 import ProjectsTable from '../../shared-components/projects-table/ProjectsTable';
 
+import './ProjectsList.css';
+
 const ProjectsList = () => {
 
     const [projectsList, setProjectsList] = useState([]);
@@ -9,7 +11,6 @@ const ProjectsList = () => {
     useEffect(() => {
         const fetchData = async () => {
             const result = await getProjectsList();
-            console.log(result)
             setProjectsList(result);
           };
           fetchData();
@@ -18,6 +19,7 @@ const ProjectsList = () => {
 
     return (
         <div className='projects-list-container'>
+            <h1 className="projects-list-header">Projects Funding Status</h1>
             <ProjectsTable data={projectsList}/>
         </div>
     )
