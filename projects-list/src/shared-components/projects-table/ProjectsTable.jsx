@@ -40,74 +40,76 @@ const ProjectsTable = ({ data }) => {
 
   return (
     <div className="projects-table-container">
-      <table className="projects-table" aria-label="Projects Data Table">
-        <caption className="visually-hidden">List of projects with funding data</caption>
-        <thead>
-          <tr>
-            <th scope="col">S.No.</th>
-            <th scope="col">Percentage Funded</th>
-            <th scope="col">Amount Pledged</th>
-          </tr>
-        </thead>
-        <tbody>
-          {getCurrentRecords().map((record, idx) => (
-            <tr key={idx}>
-              <td>{record["s.no"]}</td>
-              <td>{record["percentage.funded"]}</td>
-              <td>{record["amt.pledged"]}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+        <div className="projects-table-viewer">
+            <table className="projects-table" aria-label="Projects Data Table">
+                <caption className="visually-hidden">List of projects with funding data</caption>
+                    <thead>
+                        <tr class="project-table-header">
+                            <th scope="col">S.No.</th>
+                            <th scope="col">Percentage Funded</th>
+                            <th scope="col">Amount Pledged</th>
+                        </tr>
+                    </thead>
+                <tbody>
+                {getCurrentRecords().map((record, idx) => (
+                    <tr key={idx}>
+                    <td>{record["s.no"]}</td>
+                    <td>{record["percentage.funded"]}</td>
+                    <td>{record["amt.pledged"]}</td>
+                    </tr>
+                ))}
+                </tbody>
+            </table>
+        </div>
 
       <nav
         className="pagination"
         role="navigation"
         aria-label="Pagination Navigation"
       >
-        <button
-          onClick={() => paginate(1)}
-          disabled={currentPage === 1}
-          aria-label="Go to first page"
-        >
-          ⏮
-        </button>
+            <button
+            onClick={() => paginate(1)}
+            disabled={currentPage === 1}
+            aria-label="Go to first page"
+            >
+            ⏮
+            </button>
 
-        <button
-          onClick={() => paginate(currentPage - 1)}
-          disabled={currentPage === 1}
-          aria-label="Go to previous page"
-        >
-          {"<"}
-        </button>
+            <button
+            onClick={() => paginate(currentPage - 1)}
+            disabled={currentPage === 1}
+            aria-label="Go to previous page"
+            >
+            {"<"}
+            </button>
 
-        {getPagination().map((num) => (
-          <button
-            key={num}
-            className={currentPage === num ? "active" : ""}
-            onClick={() => paginate(num)}
-            aria-current={currentPage === num ? "page" : undefined}
-            aria-label={`Go to page ${num}`}
-          >
-            {num}
-          </button>
-        ))}
+            {getPagination().map((num) => (
+            <button
+                key={num}
+                className={currentPage === num ? "active" : ""}
+                onClick={() => paginate(num)}
+                aria-current={currentPage === num ? "page" : undefined}
+                aria-label={`Go to page ${num}`}
+            >
+                {num}
+            </button>
+            ))}
 
-        <button
-          onClick={() => paginate(currentPage + 1)}
-          disabled={currentPage === totalPages}
-          aria-label="Go to next page"
-        >
-          {">"}
-        </button>
+            <button
+            onClick={() => paginate(currentPage + 1)}
+            disabled={currentPage === totalPages}
+            aria-label="Go to next page"
+            >
+            {">"}
+            </button>
 
-        <button
-          onClick={() => paginate(totalPages)}
-          disabled={currentPage === totalPages}
-          aria-label="Go to last page"
-        >
-          ⏭
-        </button>
+            <button
+            onClick={() => paginate(totalPages)}
+            disabled={currentPage === totalPages}
+            aria-label="Go to last page"
+            >
+            ⏭
+            </button>
       </nav>
     </div>
   );

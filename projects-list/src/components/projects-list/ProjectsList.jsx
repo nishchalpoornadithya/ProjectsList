@@ -23,7 +23,7 @@ const ProjectsList = () => {
       role="main"
       aria-labelledby="projects-list-heading"
     >
-      <h1 id="projects-list-heading" className="projects-list-header">
+      <h1 className="projects-list-header">
         Projects Funding Status
       </h1>
 
